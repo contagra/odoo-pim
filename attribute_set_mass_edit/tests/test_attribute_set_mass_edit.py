@@ -35,7 +35,7 @@ class TestAttributeSetMassEdit(SavepointCase):
             commit_patcher.stop()
 
     def _get_mass_object(self):
-        mass_obj = self.env["mass.object"]
+        mass_obj = self.env["mass.editing"]
         return mass_obj.search(
             [("attribute_group_id", "=", self.attr.attribute_group_id.id)]
         )
