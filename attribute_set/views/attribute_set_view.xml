@@ -9,7 +9,9 @@
                     <field name="name" class="oe_inline" />
                     <field
                         name="model_id"
-                        invisible="context.get('default_model_id')"
+                        domain="[('model','in',('product.template','product.product'))]" 
+                        model="ir.model"
+                        options="{'no_open': 1, 'no_create': 1}"
                         class="oe_inline"
                     />
                 </group>

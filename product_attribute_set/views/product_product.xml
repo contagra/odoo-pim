@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_product_action" model="ir.actions.act_window">
+        <field name="name">Product Variants</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="search_view_id" ref="product.product_search_form_view"/>
+        <field name="context">{"include_native_attribute": 1, "search_default_filter_to_sell": 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to define a new product.
+            </p>
+        </field>
+    </record>
+    <record id="product_product_attribute_set_form" model="ir.ui.view">
+        <field name="name">product.product.attribute.set.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="attribute_set_id" position="replace">
+                <field
+                    name="attribute_set_id"
+                    nolabel="1"
+                    context="{'default_model_id': %(product.model_product_product)d}"
+                    domain="[('model_id.model', '=', 'product.product')]"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

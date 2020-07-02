@@ -8,7 +8,7 @@
     "author": "Akretion",
     "website": "https://shopinvader.com",
     "depends": ["product", "attribute_set"],
-    "data": ["views/product.xml", "views/product_category.xml"],
+    "data": ["views/product.xml", "views/product_product.xml", "views/product_category.xml"],
     "demo": ["demo/product_attribute.xml"],
     "installable": True,
 }

@@ -17,11 +17,16 @@
                 <group
                     col="2"
                     class="col-6"
-                    invisible="context.get('default_model_id')"
                 >
                     <!-- The field created by this Attribute will be related to the model given
                        by 'default_model_id' through the menu's context that led to this view -->
-                    <field name="model_id" />
+                    <field
+                        name="model_id"
+                        domain="[('model', 'in', ('product.template','product.product'))]" 
+                        model="ir.model"
+                        options="{'no_open': 1, 'no_create': 1}"
+                        class="oe_inline"
+                    />
                 </group>
                 <separator attrs="{'invisible': [('nature', '=', 'native')]}" />
                 <group
