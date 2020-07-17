@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_picking_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='backorder_id']" position="after">
+                <field
+                    name="attribute_set_id"
+                    context="{'default_model_id': %(stock.model_stock_picking)d}"
+                    domain="[('model_id.model', 'in', ('stock.picking', 'product.template'))]"
+                />
+            </xpath>
+
+            <!-- Add the 'attributes_placeholder' in an 'Attributes' page -->
+            <xpath expr="(//notebook/page)[1]" position="before">
+                <page
+                    name="stock_attributes"
+                    string="Attributes"
+                    attrs="{'invisible' : [('attribute_set_id', '=', False)]}"
+                >
+                    <separator name="attributes_placeholder" />
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
