@@ -22,14 +22,15 @@ class AttributeSetOwnerMixin(models.AbstractModel):
         compute="_compute_attribute_set_not_completed_ids",
         string="Attribute Set not completed criterias",
     )
-    attribute_set_completion_rate = fields.Float(
-        compute="_compute_attribute_set_completion_rate",
-        help="Attribute set completeness percentage",
+    completion_rate = fields.Float(
+        compute="_compute_completion_rate",
+        help="Completeness percentage",
     )
-    attribute_set_completion_state = fields.Selection(
+    completion_state = fields.Selection(
         selection=[("complete", "Complete"), ("not_complete", "Not complete")],
-        compute="_compute_attribute_set_completion_state",
-        help="Attribute set completeness status",
+        compute="_compute_completion_state",
+        help="Completeness status",
+        store=True,
     )
 
     @api.depends("attribute_set_completeness_ids")
@@ -51,21 +52,19 @@ class AttributeSetOwnerMixin(models.AbstractModel):
             )
 
     @api.depends("attribute_set_completed_ids")
-    def _compute_attribute_set_completion_rate(self):
+    def _compute_completion_rate(self):
         """Compute the completion rate from completed criterias"""
         for rec in self:
-            rec.attribute_set_completion_rate = (
+            rec.completion_rate = (
                 sum(rec.attribute_set_completed_ids.mapped("completion_rate"))
                 if rec.attribute_set_completed_ids
                 else 0.0
             )
 
-    @api.depends("attribute_set_completion_rate")
-    def _compute_attribute_set_completion_state(self):
+    @api.depends("completion_rate")
+    def _compute_completion_state(self):
         """Compute the completion state"""
         for rec in self:
-            rec.attribute_set_completion_state = (
-                "complete"
-                if rec.attribute_set_completion_rate >= 100.0
-                else "not_complete"
+            rec.completion_state = (
+                "complete" if rec.completion_rate >= 100.0 else "not_complete"
             )
