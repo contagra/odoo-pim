@@ -27,17 +27,17 @@
                 <field name="attribute_set_id" />
                 <field
                     widget="label_selection"
-                    name="attribute_set_completion_state"
+                    name="completion_state"
                     options="{'classes': {'complete': 'success', 'not_complete': 'danger'}}"
                     attrs="{'invisible': [('attribute_set_id', '=', False)]}"
                 />
                 <field
-                    name="attribute_set_completion_rate"
+                    name="completion_rate"
                     attrs="{
                         'invisible': [
                             '|',
                             ('attribute_set_id', '=', False),
-                            ('attribute_set_completion_state', '=', 'complete'),
+                            ('completion_state', '=', 'complete'),
                         ],
                     }"
                 />
@@ -51,5 +51,8 @@
         <field name="res_model">product.template</field>
         <field name="view_mode">tree,kanban,form</field>
         <field name="view_id" ref="pim.pim_product_template_tree_view" />
+        <field
+            name="context"
+        >{"include_native_attribute": 1, "search_default_filter_to_sell": 1}</field>
     </record>
 </odoo>
