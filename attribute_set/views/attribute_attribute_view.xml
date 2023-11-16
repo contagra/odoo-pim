@@ -51,7 +51,7 @@
                     />
                     <field
                         name="serialized"
-                        attrs="{'readonly': [('create_date', '!=', False)],'invisible': [('nature', 'not in', ['native', 'custom'])]}"
+                        attrs="{'readonly': [('create_date', '!=', False)]}"
                     />
                 </group>
                 <separator />
@@ -62,7 +62,7 @@
                         options="{'no_create_edit': 1}"
                         attrs="{
                                     'required': [('nature', '=', 'native')],
-                                    'invisible': [('nature', '!=', 'native')],
+                                    'invisible': [('nature', '=', 'custom')],
                                     'readonly': [('model_id', '=', False)],
                                 }"
                     />
